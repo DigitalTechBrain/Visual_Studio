@@ -1,0 +1,9 @@
+{
+  "name": "nodejs-web-app-demo",
+  "version": "0.0.0",
+  "description": "NodejsWebAppDemo",
+  "main": "server.js",
+  "author": {
+    "name": "Jack"
+  }
+}
