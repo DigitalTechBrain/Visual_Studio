@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AustinHarris.JsonRpc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,15 @@ namespace JsonRpc
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+    }
+
+    public class HelloWorldService : JsonRpcService
+    {
+        [JsonRpcMethod]
+        private string helloWorld(string message)
+        {
+            return "Hello World " + message;
         }
     }
 }
