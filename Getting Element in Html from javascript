@@ -1,0 +1,31 @@
+<html>
+<head>
+<title> </title>
+<script src = "Testing.js" > </script>
+</head>
+<body>
+<H1>This is Testing for Node Js Basic Functionality.  </H1>
+
+<script>
+
+var fame = "Ok Fame";
+document.write(fame);
+
+
+
+</script>
+
+<p id = "demo"> </p>
+
+<script>
+document.getElementById("demo").innerHTML = "Print string in a Tag After paragraph";
+</script>
+
+<p id = "memo"> </p>
+
+<script>
+document.getElementById("memo").innerHTML = fame;
+</script>
+
+</body>
+</html>
