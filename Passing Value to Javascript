@@ -1,0 +1,17 @@
+function verifyorder()
+ {
+        var order = document.getElementById('value').value;
+        document.write("You have Entered \t\t\t" +order);
+    }
+    
+    -------------------------------------
+    <html>
+<head>
+<title> </title>
+<script src = "server.js"> </script>
+</head>
+<body>
+<input type="text"  name="value" id='value' />
+<input type="button" value="submit" onclick="verifyorder()" />
+</body>
+</html>
