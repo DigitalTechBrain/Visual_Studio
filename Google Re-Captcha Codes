@@ -1,0 +1,86 @@
+c#
+-------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Net;
+using System.Web.Services;
+
+public partial class SignUp : System.Web.UI.Page
+{
+    protected static string ReCaptcha_Key = "6LcKo08UAAAAAAxQpupjjWzGs9XBdT2d5CHRdLJ4";
+    protected static string ReCaptcha_Secret = "6LcKo08UAAAAAGkH0qqaEV4b2uoQkNDJXWUPH2Ab";
+
+    [WebMethod]
+    public static string VerifyCaptcha(string response)
+    {
+        string url = "https://www.google.com/recaptcha/api/siteverify?secret=" + ReCaptcha_Secret + "&response=" + response;
+        return (new WebClient()).DownloadString(url);
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        
+    }
+
+    
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+       
+    }
+
+    protected void Button3_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Default.aspx");
+    }
+}
+---------------------------------------------------------------------------------------
+Asp.net
+------------------------------------------------------------------------------------
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+async defer></script>
+<script type="text/javascript">
+var onloadCallback = function () {
+    grecaptcha.render('dvCaptcha', {
+        'sitekey': '<%=ReCaptcha_Key %>',
+        'callback': function (response) {
+            $.ajax({
+                type: "POST",
+                url: "Testing.aspx/VerifyCaptcha",
+                data: "{response: '" + response + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    var captchaResponse = jQuery.parseJSON(r.d);
+                    if (captchaResponse.success) {
+                        $("[id*=txtCaptcha]").val(captchaResponse.success);
+                        $("[id*=rfvCaptcha]").hide();
+                    } else {
+                        $("[id*=txtCaptcha]").val("");
+                        $("[id*=rfvCaptcha]").show();
+                        var error = captchaResponse["error-codes"][0];
+                        $("[id*=rfvCaptcha]").html("RECaptcha error. " + error);
+                    }
+                }
+            });
+        }
+    });
+};
+</script>
+<div id="dvCaptcha">
+</div>
+<asp:TextBox ID="txtCaptcha" runat="server" Style="display: none" />
+<asp:RequiredFieldValidator ID = "rfvCaptcha" ErrorMessage="Captcha validation is required." ControlToValidate="txtCaptcha"
+    runat="server" ForeColor = "Red" Display = "Dynamic" /> 
