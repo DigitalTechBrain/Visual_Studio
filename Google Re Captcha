@@ -13,7 +13,7 @@ var onloadCallback = function () {
         'callback': function (response) {
             $.ajax({
                 type: "POST",
-                url: "CaptchaTesting.aspx/VerifyCaptcha",
+                url: "CaptchaTesting.aspx/VerifyCaptcha",  //  Give Page name here
                 data: "{response: '" + response + "'}",
                 //contentType: "application/json; charset=utf-8",
                 dataType: "json",
