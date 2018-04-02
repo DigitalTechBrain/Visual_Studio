@@ -1,0 +1,33 @@
+Asp.net
+---------------------------------
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebServiceConsumingAngular.aspx.cs" Inherits="WebServiceAngular.WebServiceConsumingAngular" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="JavaScript.js"></script>
+   
+</head>
+<body ng-app ="myModule">
+    <form id="form1" runat="server">
+        <div ng-controller ="MyController">
+            <p> {{ greeting.result }}</p>
+        </div>
+    </form>
+</body>
+</html>
+-------------------------------------------------
+JS
+-----------------------------------------------------
+/// <reference path="scripts/angular.min.js" />
+
+angular.module('myModule', [])
+    .controller('MyController', function ($scope, $http) {
+        $http.get('https://data.ripple.com/v2/accounts/rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn')
+            .then(function (response) {
+                $scope.greeting = response.data;
+            });
+    });
