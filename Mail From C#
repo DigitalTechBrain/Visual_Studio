@@ -1,0 +1,37 @@
+(1) Allow Less Secure App on ---at Gmail
+https://myaccount.google.com/lesssecureapps?rfn=27&rfnc=1&eid=-4029106177170816606&et=0&asae=2&pli=1
+
+(2) Enable IMAP
+
+(3) c#
+
+using System.Net;
+
+ void SendMail()
+    {
+        //string email = Cache["Email"].ToString();
+        var fromAddress = new MailAddress("abc@gmail.com", "EncashXrp");
+        var toAddress = new MailAddress("xyz@gmail.com" , "Jitender kumar");
+        const string fromPassword = "password";
+        const string subject = "Subject Test Mail From EncashXrp";
+        const string body = "Body Testing";
+
+        var smtp = new SmtpClient
+        {
+            Host = "smtp.gmail.com",
+            Port = 587,
+            EnableSsl = true,
+            DeliveryMethod = SmtpDeliveryMethod.Network,
+            UseDefaultCredentials = false,
+            Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+        };
+        using (var message = new MailMessage(fromAddress, toAddress)
+        {
+            Subject = subject,
+            Body = body
+        })
+        {
+            smtp.Send(message);
+        }
+    }
+
