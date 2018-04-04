@@ -1,0 +1,5 @@
+Random random = new Random();
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqustuvwxyz";
+        string str = "r" + new string(Enumerable.Repeat(chars, 34).Select(s => s[random.Next(s.Length)]).ToArray());
+        // Response.Write(str);
+        
