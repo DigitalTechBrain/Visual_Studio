@@ -1,0 +1,32 @@
+protected void Button1_Click(object sender, EventArgs e)
+        {
+             HttpWebRequestDemo();
+        
+        }
+
+        void HttpWebRequestDemo()
+        {
+            var request = (HttpWebRequest)WebRequest.Create("https://www.zebapi.com/api/v1/market/ticker-new/xrp/inr");
+
+            request.Method = "GET";
+            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36";
+            request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+
+            var response = (HttpWebResponse)request.GetResponse();
+
+            string content = string.Empty;
+            using (var stream = response.GetResponseStream())
+            {
+                using (var sr = new StreamReader(stream))
+                {
+                    content = sr.ReadToEnd(); 
+                }
+
+                dynamic data = JObject.Parse(content);
+                Response.Write("Market Price : - \t");
+                Response.Write(data.market);
+                Response.Write("\tVolume : - \t");
+                Response.Write(data.volume);
+            }
+
+        }
