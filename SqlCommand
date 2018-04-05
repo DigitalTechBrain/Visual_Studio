@@ -1,0 +1,9 @@
+// SqlConnection con = new SqlConnection("server=JACK-PC;User ID=sa;Password=1234;Database = encashxrp");
+        //System.Web.Configuration
+        //SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["EncashConnectionString"].ToString());
+        SqlConnection con = new SqlConnection(WebConfigurationManager.AppSettings["MyAppSetting"].ToString());
+        string str = "insert into ContactUs values('" + TextBox1.Text + "','" + TextBox2.Text + "','" + TextBox3.Text + "')";
+        SqlCommand cmd = new SqlCommand(str, con);
+        con.Open();
+        cmd.ExecuteNonQuery();
+        con.Close();
