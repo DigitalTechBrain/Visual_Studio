@@ -1,0 +1,9 @@
+ SqlDataAdapter da;
+        DataSet ds;
+        con.Open();
+        string str = "select * from LatestTrades";
+        da = new SqlDataAdapter(str, con);
+        ds = new DataSet();
+        da.Fill(ds);
+        GridView2.DataSource = ds.Tables[0];
+        GridView2.DataBind();
