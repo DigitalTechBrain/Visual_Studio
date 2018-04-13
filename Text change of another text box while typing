@@ -1,0 +1,27 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TextChangeDemo.Default" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <script type="text/javascript">
+
+function copyText() {
+    src = document.getElementById("TextBox1");
+    dest = document.getElementById("TextBox2");
+    dest.value = src.value;
+}
+
+</script>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <asp:TextBox ID="TextBox1" runat="server" onKeyPress="copyText()" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
+            <br />
+            <asp:TextBox ID="TextBox2" runat="server" OnTextChanged="TextBox2_TextChanged"></asp:TextBox>
+        </div>
+    </form>
+</body>
+</html>
