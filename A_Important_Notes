@@ -1,1 +1,2 @@
 (1) File Upload does not work in Update Control.But Ajax file Uploader Works.
+(2) Session by Default value is null but Cache doesnt null.
