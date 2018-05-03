@@ -1,2 +1,6 @@
 (1) File Upload does not work in Update Control.But Ajax file Uploader Works.
 (2) Session by Default value is null but Cache doesnt null.
+(3) <system.web>
+<customerrors mode="RemoteOnly" defaultredirect="mycustompage.htm" />
+Place this in system.web for relieving errors while hosting online a website.
+(4)
