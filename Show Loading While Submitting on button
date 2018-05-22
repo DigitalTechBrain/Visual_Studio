@@ -1,0 +1,70 @@
+asp.net
+--------------------------
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="WebApplication4.WebForm1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+
+            <asp:ScriptManager ID="ScriptManager1" runat="server">
+            </asp:ScriptManager>
+      
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+
+                    <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
+
+                      
+                    &nbsp;<asp:Label ID="Label1" runat="server" Font-Bold="True" ForeColor="Red"></asp:Label>
+
+                      
+                </ContentTemplate>              
+            </asp:UpdatePanel>
+
+            <asp:UpdateProgress ID="UpdateProgress1" runat="server">
+                         <ProgressTemplate>
+                            Keep Paitence Sign Up is in Processing....
+                         </ProgressTemplate>
+            </asp:UpdateProgress>
+
+        </div>
+    </form>
+</body>
+</html>
+-------------------------------------------
+c#
+------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Threading;
+
+namespace WebApplication4
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+
+
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+         
+            Thread.Sleep(2000);
+
+            Label1.Text = "it is done..!!!";
+        }
+    }
+}
