@@ -1,0 +1,182 @@
+c#
+--------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web.Configuration;
+
+namespace Hello
+{
+    public partial class Default : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if(Session["Login"] == null)
+            {
+                Response.Redirect("~/Login_v3/Login.aspx");
+            }
+        }
+
+        [System.Web.Services.WebMethodAttribute(), System.Web.Script.Services.ScriptMethodAttribute()]
+        public static string[] GetCompletionList(string prefixText, int count)
+        {
+             SqlConnection cn = new SqlConnection(WebConfigurationManager.ConnectionStrings["conn"].ToString());
+            //string cs = "user id = sa; password = 1234; database = northwnd; data source = SUNNY-PC";
+           //string cs = "Data Source=184.168.47.13;Integrated Security=False;User ID=PharmaDB;Connect Timeout=15;Encrypt=False;Packet Size=4096";
+          //string cs = "user id = PharmaDB; password = Jack@1989; database = PharmaDB; data source = 184.168.47.13";
+
+            //SqlConnection cn = new SqlConnection(cs);
+            string sql = String.Format("select ProductName from products where ProductName like'{0}%'", prefixText);
+            SqlDataAdapter da = new SqlDataAdapter(sql, cn);
+            DataSet ds = new DataSet();
+            da.Fill(ds, "products");
+            int rcount, size;
+            rcount = ds.Tables[0].Rows.Count;
+            if (rcount >= count)
+                size = count;
+            else
+                size = rcount;
+
+            string[] pnames = new string[size];
+            for (int i = 0; i < size; i++)
+            {
+                DataRow row = ds.Tables[0].Rows[i];
+                pnames[i] = row["ProductName"].ToString();
+            }
+            return pnames;
+        }
+
+    }
+}
+---------------------
+asp.net
+-----------------------
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Hello.Default" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Pharma Medicines</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+     
+    <!-- Custom styles for this template -->
+    <link href="css/round-about.css" rel="stylesheet">
+       <!-- Bootstrap core CSS -->
+     
+  </head>
+
+  <body>
+
+      <form id ="form1" runat ="server">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" >
+      <div class="container">
+          <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+          <asp:TextBox ID="TextBox1" runat="server" Width ="100%" placeholder ="Search"></asp:TextBox>
+          <ajaxToolkit:AutoCompleteExtender ID="TextBox1_AutoCompleteExtender" runat="server" BehaviorID="TextBox1_AutoCompleteExtender" DelimiterCharacters="" ServicePath="" TargetControlID="TextBox1" MinimumPrefixLength="1" ServiceMethod="GetCompletionList">
+          </ajaxToolkit:AutoCompleteExtender>
+    
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Introduction Row -->
+     
+      
+
+      <!-- Team Members Row -->
+<div class="container">
+ 
+  
+  <table class="table table-bordered" style ="width:100%;">
+   
+    <tbody>
+      <tr>
+        <td>
+            <asp:ImageButton class="mx-auto d-block" ID="ImageButton1" runat="server" ImageUrl="~/Images/receipt.png" Height="50px" Width="50px" />
+           <h3 class="text-center">New Order</h3>
+        </td>
+        <td>
+             <asp:ImageButton  class="mx-auto d-block" ImageUrl="~/Images/coupon.png" ID="ImageButton2" runat="server" Height="50px" Width="50px" />
+            <h3 class="text-center">My Orders</h3>
+        </td>
+       
+      </tr>
+      <tr>
+        <td>
+            <asp:ImageButton  class="mx-auto d-block" ImageUrl="~/Images/diamond.png" ID="ImageButton3" runat="server" Height="50px" Width="50px" />
+             <h3 class="text-center">Draft Orders</h3>
+        </td>
+        <td>
+             <asp:ImageButton  class="mx-auto d-block" ImageUrl="~/Images/hand-money.png" ID="ImageButton4" runat="server" Height="50px" Width="50px" />
+             <h3 class="text-center">Add Distributors</h3>
+        </td>
+       
+      </tr>
+      <tr>
+        <td>
+<asp:ImageButton  class="mx-auto d-block" ImageUrl="~/Images/hands-dollar-bill.png" ID="ImageButton5" runat="server" Height="50px" Width="50px" />
+            <h3 class="text-center">Schemes</h3>
+        </td>
+        <td>
+<asp:ImageButton  class="mx-auto d-block" ImageUrl="~/Images/magnifier.png" ID="ImageButton6" runat="server" Height="50px" Width="50px" />
+               <h3 class="text-center">Product Search</h3>
+        </td>
+       
+      </tr>
+    </tbody>
+  </table>
+    <marquee BEHAVIOR=alternate><h2 style ="color:blue;">...Offers...</h2></marquee>
+</div>
+
+        <div class="container">
+  
+  <div class="card" style="width:100%">
+    <img class="card-img-top" src="Images/MedicineImages/photo-1471864190281-a93a3070b6de.jpg" alt="Card image" style="width:50%">
+    <div class="card-body">
+      <h4 class="card-title">Ranbaxy</h4>
+      <p class="card-text">Get 25% Discount with purchasing 100 Tablets with extra 10 tablets per pack.</p>
+      <a href="#" class="btn btn-primary">Place Order</a>
+    </div>
+  </div>
+            <div class="card" style="width:100%">
+    <img class="card-img-top" src="Images/MedicineImages/tablets_750.jpg" alt="Card image" style="width:50%">
+    <div class="card-body">
+      <h4 class="card-title">Lycoboost</h4>
+      <p class="card-text">Get 25% Discount with purchasing 100 Tablets with extra 10 tablets per pack.</p>
+      <a href="#" class="btn btn-primary">Place Order</a>
+    </div>
+  </div>
+
+    </div>
+    <!-- /.container -->
+       
+    <!-- Footer -->
+ 
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</form>
+       <div>  </div>
+  </body>
+
+</html>
