@@ -1,0 +1,16 @@
+ protected void Page_Load(object sender, EventArgs e)
+        {
+            // A array of authors  
+            string[] authors = { "Mahesh Chand", "Jeff Prosise", "Dave McCarter", "Allen O'neill",
+"Monica Rathbun", "Henry He", "Raj Kumar", "Mark Prime",
+"Rose Tracey", "Mike Crown" };
+
+            // Create a Random object  
+            Random rand = new Random();
+            // Generate a random index less than the size of the array.  
+            int index = rand.Next(authors.Length);
+            // Display the result.  
+
+
+            Label1.Text = authors[index];//return the new random list
+        }
