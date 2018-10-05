@@ -1,0 +1,124 @@
+create database questions
+
+use questions
+
+create table table1
+(
+Sno int identity(1,1),
+
+EName varchar(20),
+
+)
+
+insert into table1
+values('F')
+
+
+
+delete from table1 where Sno = 6
+create table table2
+(
+Sno int identity(1,1),
+Sid int,
+SName varchar(20),
+)
+
+insert into table2
+values(2,'B')
+
+---------------------
+I need common According to Sno and Sid
+
+select table1.Sno , table2.Sid , table2.SName  
+from table1  
+Inner Join table2
+on table1.Sno = table2.Sid;
+
+---Inner Join
+select table2.SName , Table2.Sid from table2 inner join table1 on table2.sid = table1.sno
+
+
+select * from table1
+select * from table2
+
+----------------------Store Procedure
+CREATE PROCEDURE display
+AS
+select * from table1
+select * from table2
+GO;
+
+exec display
+
+---store procedure to display result according to condition
+
+
+---sequence for alpha numerical value
+CREATE TABLE dbo.tbl_TestVarcharSequence
+(
+    VarcharID VARCHAR(10)
+    ,Name VARCHAR(255)
+    ,CONSTRAINT pk_tbl_TestVarcharSequence_VarcharID PRIMARY KEY(VarcharID)
+)
+GO 
+--Create a Sample Sequence object:
+CREATE SEQUENCE dbo.seq_TestVarcharSequenceNumber AS 
+INT START WITH 1
+INCREMENT BY 1;
+GO
+-------Create Sequence constraint using FORMAT function:
+ALTER TABLE dbo.tbl_TestVarcharSequence
+ADD CONSTRAINT seq_tbl_TestVarcharSequence_VarcharID DEFAULT 
+FORMAT((NEXT VALUE FOR dbo.seq_TestVarcharSequenceNumber),'ABC00#') 
+FOR VarcharID;
+GO
+-----nsert few sample records
+INSERT INTO dbo.tbl_TestVarcharSequence (Name) 
+VALUES ('Anvesh'),('Alex'),('Roy'),('Bony')
+GO
+
+SELECT * FROM dbo.tbl_TestVarcharSequence
+
+INSERT INTO dbo.tbl_TestVarcharSequence (Name) 
+VALUES ('Jack')
+GO
+--------------------------------------Function User Defined
+CREATE FUNCTION whichContinent 
+(@Country nvarchar(15))
+RETURNS varchar(30)
+AS
+BEGIN
+declare @Return varchar(30)
+select @return = case @Country
+when 'Argentina' then 'South America'
+when 'Belgium' then 'Europe'
+when 'Brazil' then 'South America'
+when 'Canada' then 'North America'
+when 'Denmark' then 'Europe'
+when 'Finland' then 'Europe'
+when 'France' then 'Europe'
+else 'Unknown'
+end
+
+return @return
+end
+
+
+------------------------------
+print dbo.WhichContinent('Argentina')
+----------------------------------------
+select dbo.WhichContinent(table1.Country), table1.*  ------if country column exist in table1
+from table2
+----------------------------------------------
+----------------------trigger
+
+create trigger trg 
+on table1
+for Insert
+As
+begin
+
+print 'Values Inserted'
+
+end
+
