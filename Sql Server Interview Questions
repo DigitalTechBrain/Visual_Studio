@@ -11,7 +11,7 @@ EName varchar(20),
 )
 
 insert into table1
-values('F')
+values('E')
 
 
 
@@ -112,7 +112,7 @@ from table2
 ----------------------------------------------
 ----------------------trigger
 
-create trigger trg 
+create trigger trg
 on table1
 for Insert
 As
@@ -121,4 +121,20 @@ begin
 print 'Values Inserted'
 
 end
+-------------------------------------------------------------------------
+Display latest records if more than three records are exist
+
+create table disaster
+(
+sno int identity(1,1) not null,
+Sname varchar(20),
+phone varchar(max)
+)
+
+insert into disaster
+values('mack','666666')
+
+select * from disaster
+SELECT TOP 1 * FROM disaster where Sname = 'mack' ORDER BY phone  DESC 
+
 
