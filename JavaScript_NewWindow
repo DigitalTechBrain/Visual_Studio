@@ -1,0 +1,17 @@
+ <button onclick="myFunction2()">New Window</button>
+ 
+<script>
+function myFunction2() {
+   var myWindow = window.open("../Default.aspx", "", "width=1000,height=500");
+}
+</script>
+-------------------------------------
+New Tab
+-------------------------------------
+<button onclick="myFunction()">Try it</button>
+            
+<script>
+function myFunction() {
+    window.open("https://www.w3schools.com");
+}
+</script>
