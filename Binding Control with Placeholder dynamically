@@ -1,0 +1,12 @@
+Image ob = new Image();
+            ob.ImageUrl = "~/img/Joined.jpg";
+            PlaceHolder1.Controls.Add(ob);
+            
+            ---------------------------
+            
+            <asp:PlaceHolder ID="PlaceHolder1" runat="server">
+
+                </asp:PlaceHolder>
+            
+            
+            
