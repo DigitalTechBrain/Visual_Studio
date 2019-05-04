@@ -1,0 +1,18 @@
+git config --global user.name "DigitalTechBrain"
+git config --global user.email letsexplorebrain@gmail.com
+
+(come to folder following cd command)
+
+git init
+
+git add .
+
+git commit -m "From Git Bash command"
+
+git status    (Checking Commit Status)
+
+
+(Can Get it from Github Repository)
+git remote add origin https://github.com/DigitalTechBrain/Projects.git
+
+git push -u origin master
